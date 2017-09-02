@@ -10,6 +10,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/vishvananda/netlink/nl"
 	"github.com/vishvananda/netns"
 )
 
@@ -1109,7 +1110,7 @@ func TestLinkXdp(t *testing.T) {
 	if err := LinkSetXdpFd(testXdpLink, fd); err != nil {
 		t.Fatal(err)
 	}
-	if err := LinkSetXdpFd(testXdpLink, -1); err != nil {
+	if err := LinkSetXdpFdWithFlags(testXdpLink, fd, nl.XDP_FLAGS_UPDATE_IF_NOEXIST); err != nil {
 		t.Fatal(err)
 	}
 }
